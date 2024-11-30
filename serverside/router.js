@@ -9,7 +9,7 @@ router.route('/adduser').post(rh.adduser)
 router.route('/login').post(rh.login)
 router.route('/getUser').get(Auth,rh.getUser)
 router.route('/getUserDetails/').get(Auth,rh.getUserDetails)
-router.route('/otp').post(rh.generateOTP)
+router.route('/email').post(rh.emailvalidation)
 router.route('/updatePass').put(rh.updatePass)
 
 export default router;
