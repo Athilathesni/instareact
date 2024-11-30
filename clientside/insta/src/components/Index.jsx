@@ -22,7 +22,9 @@ const Index = () => {
   return (
     <div>
       <nav>
+        <Link to={'/Login'}>
           <button>login</button>
+          </Link>
         {data.map((user,index)=>(
             <Link to={`${user._id}`}>
           <div key={index}>name:{user.name}</div>
@@ -36,7 +38,7 @@ const Index = () => {
           </Link>     
         ))}
       </nav>
-      <div className="container">
+      <div className="">
         {data.map((item, index) => (
           <Link to={`${item._id}`}>
             <div key={index} className="card">
