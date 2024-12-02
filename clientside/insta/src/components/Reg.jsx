@@ -1,117 +1,72 @@
-import React, { useState } from 'react';
-import "./Reg.css";
-import { Link } from "react-router-dom";
-const Reg= () => {
-  // State to store form data and validation messages
+import React, { useState } from "react";
+
+import "./Reg.css"
+import { Navigate, useNavigate } from "react-router-dom";
+const Reg = () => {
+    const navigate=useNavigate()
   const [formData, setFormData] = useState({
-    fullName: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
+    username: "",
+    email: "",
+    pwd: "",
+    cpwd: "",
   });
-  
-  const [errors, setErrors] = useState({});
-  
-  // Handle form data change
+
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
+    setFormData({
+      ...formData,
       [name]: value,
-    }));
+    });
   };
 
-  // Basic validation function
-  const validateForm = () => {
-    const validationErrors = {};
-    if (!formData.fullName) validationErrors.fullName = 'Full Name is required';
-    if (!formData.email) validationErrors.email = 'Email is required';
-    else if (!/\S+@\S+\.\S+/.test(formData.email)) validationErrors.email = 'Email is invalid';
-    if (!formData.password) validationErrors.password = 'Password is required';
-    else if (formData.password.length < 6) validationErrors.password = 'Password must be at least 6 characters';
-    if (formData.password !== formData.confirmPassword) validationErrors.confirmPassword = 'Passwords do not match';
-    return validationErrors;
-  };
-
-  // Handle form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
-    const validationErrors = validateForm();
-    if (Object.keys(validationErrors).length === 0) {
-      alert('Form submitted successfully!');
-      // Submit form data to the server here (e.g., using fetch or axios)
-    } else {
-      setErrors(validationErrors);  // Show validation errors if any
+    const res=await fetch('http://localhost:3000/api/adduser',{
+        method:"POST",
+        headers:{"content-Type":'application/json'},
+        body:JSON.stringify(formData)
+    })
+    
+    const data=await res.json()
+    if(res.status==201){
+        alert(data.msg)
+        navigate("/Login")
     }
+    else{
+        alert(data.error)
+    }
+
   };
 
   return (
-    <div className="form-container">
-      <h2>Registration Form</h2>
-      <form onSubmit={handleSubmit} className="registration-form">
-        {/* Full Name */}
+    <div className="register-container">
+      <h1>Register</h1>
+      <form onSubmit={handleSubmit} method="post">
         <div className="form-group">
-          <label htmlFor="fullName">Full Name</label>
-          <input
-            type="text"
-            id="fullName"
-            name="fullName"
-            value={formData.fullName}
-            onChange={handleChange}
-            className="form-input"
-          />
-          {errors.fullName && <p className="error-text">{errors.fullName}</p>}
+          <label>Username:</label>
+          <input   type="text"   name="username"   value={formData.username}   onChange={handleChange}   required />
         </div>
-
-        {/* Email */}
         <div className="form-group">
-          <label htmlFor="email">Email</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            className="form-input"
-          />
-          {errors.email && <p className="error-text">{errors.email}</p>}
+          <label>Email:</label>
+          <input type="email" name="email" value={formData.email} onChange={handleChange} required  />
         </div>
-
-        {/* Password */}
         <div className="form-group">
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            className="form-input"
-          />
-          {errors.password && <p className="error-text">{errors.password}</p>}
+          <label>Password:</label>
+          <input type="password" name="pwd" value={formData.password} onChange={handleChange} required  />
         </div>
-
-        {/* Confirm Password */}
         <div className="form-group">
-          <label htmlFor="confirmPassword">Confirm Password</label>
-          <input
-            type="password"
-            id="confirmPassword"
-            name="confirmPassword"
-            value={formData.confirmPassword}
-            onChange={handleChange}
-            className="form-input"
-          />
-          {errors.confirmPassword && <p className="error-text">{errors.confirmPassword}</p>}
+          <label>Confirm Password:</label>
+          <input type="password" name="cpwd" value={formData.confirmPassword} onChange={handleChange} required />
         </div>
-
-        {/* Submit Button */}
-        <div className="form-group">
-          <button type="submit" className="submit-btn"><Link to={'/Login'}>Register</Link></button>
-        </div>
+        <button type="submit" className="btn-submit">Register</button>
       </form>
     </div>
   );
 };
 
 export default Reg;
+
+
+
+
+

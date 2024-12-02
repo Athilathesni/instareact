@@ -1,17 +1,65 @@
-nav{
-    width: 2000px;
-    height: 60px;
-    background-color: gray;
-    margin-top: -9px;
-    margin-left: -10px;
+/* nav.css */
+*{
+    margin: 0;
+    padding: 0;
 }
-nav button{
-    width: 90px;
-    height: 40px;
-    color: aliceblue;
-    background-color: rgb(13, 119, 9);
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f1efef; 
+    color: rgb(10, 10, 10);
+    font-family: Arial, sans-serif;
+    /* height: 80px; */
+    padding: 10px 50px;
+}
+
+.rightside {
+    display: flex;
+    align-items: center;
+    gap: 10px; 
+    margin-left: 1300px;
+}
+
+.rightside h3 {
+    margin: 0;
+    font-size: 15px;
+    color: #2b2929;
+}
+
+.rightside select {
+    padding: 3px;
+    border-radius: 6px;
     border: none;
-    border-radius: 10px;
-    margin-left: 1430px;
-    margin-top: 10px;
+    background-color:#f1efef;
+    color: #333;
+    font-size: 1rem;
+    cursor: pointer;
+}
+.rightside select:focus {
+    outline: none;
+    border-color: #97999b; 
+}
+
+
+.rightside select:hover {
+    border-color: #909192;
+}
+option 
+{ 
+    padding: 5px;
+     font-size: 16px; 
+}
+
+@media (max-width: 600px) {
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .rightside {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
 }
