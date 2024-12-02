@@ -1,57 +1,45 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import "./Index.css";
-const Index = () => {
-  const [data, setData] = useState([]);
+import React, { useState } from 'react';
+import './Index.css'; // Import the custom CSS for the navbar
+function ProfileDropdown() {
+  // Manage dropdown open/close state using React's useState hook
+  const [isOpen, setIsOpen] = useState(false);
 
-  useEffect(() => {
-    fetchData();
-  }, []);
-  const fetchData = async () => {
-    try {
-      const response = await fetch("http://localhost:3000/api/getUser");
-      const res = await response.json();
-      // console.log(res)
-      setData([...res]);
-    } catch (error) {
-      console.log(error);
-    }
-  }
-  console.log(data);
+  // Toggle the dropdown visibility
+  const toggleDropdown = () => {
+    setIsOpen(!isOpen);
+  };
 
   return (
-    <div>
-      <nav>
-        <Link to={'/Login'}>
-          <button>login</button>
-          </Link>
-        {data.map((user,index)=>(
-            <Link to={`${user._id}`}>
-          <div key={index}>name:{user.name}</div>
-              <div>
-                  <button>▼</button>
-                  <div>
-                    <a>Profile</a>
-                    <a>Logout</a>
-                  </div>
-              </div>
-          </Link>     
-        ))}
-      </nav>
-      <div className="">
-        {data.map((item, index) => (
-          <Link to={`${item._id}`}>
-            <div key={index} className="card">
-              <div>
-                <img src={item.pic} alt="" />
-              </div>
-              <div>Name: {item.name}</div>
-            </div>
-          </Link>
-        ))}
+    <div className="profile-dropdown">
+      {/* Profile Name */}
+      <div className="nav-dropdown" id="uname">name</div>
+      
+      {/* Profile Image */}
+      <div id="profilep" className="profilep">
+        <img src='' alt='Profile' id='' className="profile-pic" width="40" height="40"/>
       </div>
+
+      {/* Dropdown Button */}
+      <button onClick={toggleDropdown} className="dropbtn">▼</button>
+      
+      {/* Dropdown Content - Visible only when isOpen is true */}
+      {isOpen && (
+        <div id="myDropdown" className="dropdown-content">
+          <a href="#profile">Profile</a>
+          <a href="#logout">Logout</a>
+        </div>
+      )}
     </div>
   );
-};
+}
+
+function Index() {
+  return (
+    <nav className="navbar">
+      {/* Profile Dropdown Component */}
+      <ProfileDropdown />
+    </nav>
+  );
+}
 
 export default Index;

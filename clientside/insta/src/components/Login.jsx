@@ -46,7 +46,7 @@ const Login = () => {
           placeholder="password" 
         /></div><br/>
     <div className="pass">Forgot password?</div>
-        <button onClick={handleClick} type="submit">Login</button>
+        <button onClick={handleClick} type="submit"><Link to={'/Index'}>Login</Link></button>
         <div className="signup">Create New Account <Link to={'/Reg'}>Signup</Link></div>
       </form>
       </div>
