@@ -1,18 +1,3 @@
-// import React, { useState } from "react";
-// import "./Email.css";
-// import { useNavigate } from "react-router-dom";
-// const Email = () => {
-//   const [email, setEmail] = useState("");
-// const navigate=useNavigate()
-//   const handleChange = (e) => {
-//     setEmail(e.target.value);
-//   };
-//   const handleSubmit = (e) => {
-//     e.preventDefault();
-//     // console.log("Email submitted for verification:", email);
-//   navigate("/Reg")
-//   };
-
 import React, { useState } from "react";
 import "./Email.css"
 import axios from 'axios'

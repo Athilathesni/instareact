@@ -1,18 +1,3 @@
-// import React from "react";
-// import "./Nav.css";
-// import { useNavigate } from "react-router-dom";
-// const Nav = () => {
-//   const navigate = useNavigate();
-
-//   const handleSelectChange = (event) => {
-//     const value = event.target.value;
-//     if (value === "logout") {
-//       navigate("/Login");
-//     } else if (value === "profile") {
-//       navigate("/profile");
-//     }
-//   };
-
 import React, { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import "./Nav.css"
@@ -46,19 +31,46 @@ const Nav = () => {
   }
 
   return (
-    <div className="navbar">
-      <div className="rightside">   
-        <h3>Username</h3>
-      <div style={{height:"30px",width:"30px",backgroundColor:"white",borderRadius:"50%"}}></div>
-        <select   name="userActions"   id="userActions"  onChange={handleLogout}   >
-          <option value=""></option>
-          <option value="logout">Logout</option>
-          <option value="profile">Profile</option>
-        </select>
-      </div>
-    </div>
-  );
-};
+    <nav className="navbar">
+      <div className="right">
+        <span className="username">Username</span>
+        <div style={{height:"30px",width:"30px",backgroundColor:"white",borderRadius:"50%"}}></div>
+        <div className="dropdown">
+          <button onClick={toggleDropdown} className="dropbtn1">▼</button>
+          <button className="login">
+          <a href="/login">
+            Login
+          </a>
+        </button>
+       
+          {isDropdownVisible && (
+            <div className="dropcontent">
+              <a href="/profile">Profile</a><br/>
+              <a onClick={handleLogout} style={{ cursor: "pointer" }}>
+                Logout
+              </a>
+            </div>
+          )}
+        </div>
+      </div> 
+      </nav>
+    
+  )
+}
+//     <div className="navbar">
+//       <div className="rightside">   
+//         <h3>Username</h3>
+//       <div style={{height:"30px",width:"30px",backgroundColor:"white",borderRadius:"50%"}}></div>
+//       <button>login</button>
+//         <select   name="userActions"   id="userActions"  onChange={handleLogout}   >
+//           <option value=""></option>
+//           <option value="logout">Logout</option>
+//           <option value="profile">Profile</option>
+//         </select>
+//       </div>
+//     </div>
+//   );
+// };
 
 export default Nav;
 

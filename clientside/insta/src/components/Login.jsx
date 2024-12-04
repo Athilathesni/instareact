@@ -1,39 +1,3 @@
-// import React, { useState } from "react";
-// import "./Login.css";
-// import { Link } from "react-router-dom";
-
-// const Login = () => {
-//   const [formData, setFormData] = useState({
-//     email: "",
-//     pass: "",
-//   });
-
-//   const handleChange = (e) => {
-//     const { name, value } = e.target;
-//     setFormData({
-//       ...formData,
-//       [name]: value,
-//     });
-//   };
-
-//   const handleSubmit = async(e) => {
-//     e.preventDefault();
-//     const res=await fetch('http://localhost:3000/api/login',{
-//         method:"POST",
-//         headers:{"content-Type":'application/json'},
-//         body:JSON.stringify(formData)
-//     })
-      
-
-//     const data=await res.json()
-//     if(res.status==201){  
-//         alert("you logined")
-//     }
-//     else{
-//         alert(data.error)
-//     }
-
-//   };
 import React, { useState } from "react";
 import "./Login.css";
 import { Link, useNavigate } from "react-router-dom";
@@ -79,7 +43,7 @@ const Login = () => {
           <input  type="password"  name="pass" placeholder="password"  value={formData.pass}  onChange={handleChange}  required/>
         </div>
         <div className="pass"><Link to={'/Email'} className="pass" >Forgot Password?</Link></div>
-        <button type="submit">Login</button>
+        <button type="submit"><a href="/">Login</a></button>
         <div className="signup"> Create New Account <Link to={'/Email'}>Sign Up</Link>
         </div>
       </form>
