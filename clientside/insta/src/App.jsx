@@ -13,9 +13,9 @@ function App() {
     <Nav/>
       <Routes>
         <Route path="/" element={<Index/>}/>
-        <Route path="/Login" element={<Login/>}/>
+        <Route path="/login" element={<Login/>}/>
         <Route path="/Reg" element={<Reg/>}/>
-        <Route path='/Email' element={<Email/>}/>
+        <Route path='/email' element={<Email/>}/>
       </Routes>
     </BrowserRouter>
       

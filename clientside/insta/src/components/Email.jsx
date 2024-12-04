@@ -1,26 +1,56 @@
+// import React, { useState } from "react";
+// import "./Email.css";
+// import { useNavigate } from "react-router-dom";
+// const Email = () => {
+//   const [email, setEmail] = useState("");
+// const navigate=useNavigate()
+//   const handleChange = (e) => {
+//     setEmail(e.target.value);
+//   };
+//   const handleSubmit = (e) => {
+//     e.preventDefault();
+//     // console.log("Email submitted for verification:", email);
+//   navigate("/Reg")
+//   };
+
 import React, { useState } from "react";
-import "./Email.css";
-import { Navigate, useNavigate } from "react-router-dom";
+import "./Email.css"
+import axios from 'axios'
+
 const Email = () => {
   const [email, setEmail] = useState("");
-const navigate=useNavigate()
+
   const handleChange = (e) => {
     setEmail(e.target.value);
   };
-  const handleSubmit = (e) => {
+  const handleSubmit =async (e) => {
     e.preventDefault();
-    // console.log("Email submitted for verification:", email);
-  navigate("/Reg")
+    try {
+      console.log(email)
+      const res=await axios.post("http://localhost:4000/api/emailv",{email})
+      console.log(res)
+      if (res.status==200) {
+        alert(res.data.msg)
+        localStorage.setItem('email', email);
+      }else{
+        alert(res.data.msg)
+      }
+      
+    } catch (error) {
+      console.log(error)
+      
+    }
   };
+
 
   return (
     <div className="email">
       <h2 className="h2">Email Verification</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <input className="infor" type="email"  name="email"  value={email}  onChange={handleChange}  required  placeholder="Enter your email" />
+          <input className="infor" type="email" id="email" name="email"  value={email}  onChange={handleChange} placeholder="Enter your email" />
         </div>
-        <button type="submit" className="btnv">  Verify </button>
+        <button type="submit" className="btnv">Verify</button>
       </form>
     </div>
   );

@@ -1,12 +1,10 @@
 import React, { useState } from "react";
-// import "./cPass.css";
 
 const Cpass = () => {
   const [formData, setFormData] = useState({
     pwd: "",
     cpwd: "",
   });
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -14,7 +12,6 @@ const Cpass = () => {
       [name]: value,
     });
   };
-
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -24,7 +21,7 @@ const Cpass = () => {
     }
 
     console.log("Password changed successfully:", formData.newPassword);
-    // Add logic for API integration
+  
   };
 
   return (
