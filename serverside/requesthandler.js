@@ -40,15 +40,15 @@ export async function login(req, res) {
     // console.log(req.body);
     const { email, pass } = req.body
     if (!(email && pass))
-        return res.status(500).send({ msg: "fields are empty" })
+        return res.status(404).send({ msg: "fields are empty" })
     const user = await userSchema.findOne({ email })
     if (!user)
-        return res.status(500).send({ msg: "email donot exist" })
+        return res.status(404).send({ msg: "email donot exist" })
     const success = await bcrypt.compare(pass, user.pass)
     // console.log(success);
     if (success !== true)
-        return res.status(500).send({ msg: "email or password not exist" })
-    const token = await sign({ UserID: user._id }, process.env.JWT_KEY, { expiresIn: "24h" })
+        return res.status(404).send({ msg: "email or password not exist" })
+    const token = await sign({ UserID: user._id }, process.env.jwt_key, { expiresIn: "10s" })
     // console.log(token)
     res.status(201).send({ token })
 }
@@ -72,25 +72,22 @@ export async function login(req, res) {
             <h3 style="color: rgb(146, 57, 16); font-weight: bold; font-size: 25px; margin-top: 10px; margin-left: 110px;">Email Validation</h3>
             <input type="text" name="email" id="email" placeholder="enter email" style="width: 250px; height: 30px; margin-top: 40px; margin-left: 20px;">
              <a href="http://localhost:5173/Reg">
-            <button style="height:30px; width: 90px; color: white; background-color: seagreen; border: none; border-radius: 4px; font-weight: bold;">Verify</button>
+            <button style="height:40px; width: 90px; color: white; background-color: seagreen; border: none; border-radius: 4px; font-weight: bold;">Verify</button>
             </a>
         </div>
     </div>
   `, 
-        })
-        console.log("Message sent: %s", info.messageId)
-        res.status(201).send({msg:"Verificaton email sented"})
-    }else{
-        return res.status(500).send({msg:"email already exist"})
-    }
+})
+console.log("Message sent: %s", info.messageId)
+res.status(200).send({msg:"Verificaton email sented"})
+}else{
+return res.status(500).send({msg:"email exist"})
+}
 }
 
-export async function display(req, res) {
-    // console.log(req.user);
-    const usr=await userSchema.findOne({_id:req.user.UserID})
-    // console.log(usr);
-    res.status(200).send(usr); 
+export async function Home(req, res) {
+const usr=await userSchema.findOne({_id:req.user.UserID})
+console.log(usr);
 
-   
+res.status(200).send({name:usr.username}); 
 }
-
