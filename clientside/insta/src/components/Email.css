@@ -9,7 +9,8 @@
 }
 .infor{
     margin-top: 20px;
-    margin-left: 60px;
+    margin-left: 10px;
+    margin-right: -10px;
     width: 250px;
     height: 20px;
     outline: none;

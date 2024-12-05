@@ -7,11 +7,11 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color:#f1efef; 
+    background-color:#a09c9c; 
     color: rgb(10, 10, 10);
     font-family: Arial, sans-serif;
     /* height: 80px; */
-    padding: 10px 50px;
+    padding: 10px 60px;
 }
 .dropbtn1{
     color: rgb(10, 10, 10);
@@ -38,7 +38,7 @@
     border: none;
     border-radius: 3px;
     margin-left: 13px;
-    margin-bottom: 5px;
+    margin-bottom: 4px;
     
 }
 .login a{
@@ -74,8 +74,13 @@
     border-radius: 4px;
     text-align: center;
     background-color: rgb(255, 251, 251);
+    margin-top: 40px;
+    /* text-decoration: none; */
 }
-
+.logout{
+    text-decoration: none;
+    color: black;
+}
 @media (max-width: 600px) {
     .navbar {
         flex-direction: column;

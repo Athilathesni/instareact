@@ -7,7 +7,7 @@ const Reg= () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     username: "",
-    email: localStorage.getItem('email') || "",
+    email: "",
     pwd: "",
     cpwd: "",
   })
@@ -31,7 +31,7 @@ const Reg= () => {
         alert(res.data.msg)
       }
     } catch (error) {
-      
+      alert(res.data.error)
     }
   };
 
@@ -41,21 +41,21 @@ const Reg= () => {
       <form onSubmit={handleSubmit} method="post">
         <div className="form-group">
           <label>Username:</label>
-          <input   type="text"   name="username"   value={formData.username}   onChange={handleChange}/>
+          <input   type="text"   name="username"   value={formData.username} onChange={handleChange} placeholder="Full Name"/>
         </div>
         <div className="form-group">
           <label>Email:</label>
-          <input type="email" name="email" value={formData.email} onChange={handleChange}/>
+          <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="Email"/>
         </div>
         <div className="form-group">
           <label>Password:</label>
-          <input type="password" name="pwd" value={formData.pwd} onChange={handleChange}/>
+          <input type="password" name="pwd" value={formData.pwd} onChange={handleChange} placeholder="Password"/>
         </div>
         <div className="form-group">
           <label>Confirm Password:</label>
-          <input type="password" name="cpwd" value={formData.cpwd} onChange={handleChange}/>
+          <input type="password" name="cpwd" value={formData.cpwd} onChange={handleChange} placeholder="Confirm Password"/>
         </div>
-        <button type="submit" className="btn-submit"><a href="/login">Register</a></button>
+        <button type="submit" className="btn-submit">Register</button>
       </form>
     </div>
   );

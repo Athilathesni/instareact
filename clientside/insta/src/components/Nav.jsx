@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import "./Nav.css"
+import img from "../assets/insta.webp";
 
-const Nav = () => {
+const Nav = ({user}) => {
   const [isDropdownVisible, setIsDropdownVisible] = useState(false)
   const navigate = useNavigate()
 
@@ -32,26 +33,29 @@ const Nav = () => {
 
   return (
     <nav className="navbar">
+      <div>
+        <img src="insta.webp" alt="" />
+      </div>
       <div className="right">
-        <span className="username">Username</span>
-        <div style={{height:"30px",width:"30px",backgroundColor:"white",borderRadius:"50%"}}></div>
+        <span className="username">{user}</span>
+        <div onClick={toggleDropdown} style={{height:"30px",width:"30px",backgroundColor:"white",borderRadius:"50%"}}>
         <div className="dropdown">
-          <button onClick={toggleDropdown} className="dropbtn1">▼</button>
-          <button className="login">
-          <a href="/login">
-            Login
-          </a>
-        </button>
-       
-          {isDropdownVisible && (
+        {isDropdownVisible && (
             <div className="dropcontent">
-              <a href="/profile">Profile</a><br/>
-              <a onClick={handleLogout} style={{ cursor: "pointer" }}>
+              <a>Profile</a><br/>
+              <a className="logout" href="/Login" onClick={handleLogout} style={{ cursor: "pointer", textDecoration:"none"}}>
                 Logout
               </a>
             </div>
           )}
-        </div>
+        </div></div>
+          {/* <button onClick={toggleDropdown} className="dropbtn1">▼</button> */}
+          {/* <button className="login">
+          <a href="/Login">
+            Login
+          </a>
+        </button> */}
+       
       </div> 
       </nav>
     

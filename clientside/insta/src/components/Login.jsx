@@ -44,7 +44,7 @@ const Login = () => {
         </div>
         <div className="pass"><Link to={'/Email'} className="pass" >Forgot Password?</Link></div>
         <button type="submit"><a href="/">Login</a></button>
-        <div className="signup"> Create New Account <Link to={'/Email'}>Sign Up</Link>
+        <div className="signup"> Don't have an account? <Link to={'/Email'}>Sign Up</Link>
         </div>
       </form>
     </div>

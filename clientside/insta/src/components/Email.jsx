@@ -4,7 +4,7 @@ import axios from 'axios'
 
 const Email = () => {
   const [email, setEmail] = useState("");
-
+  // const token=localStorage.getItem("token")
   const handleChange = (e) => {
     setEmail(e.target.value);
   };
@@ -26,8 +26,6 @@ const Email = () => {
       
     }
   };
-
-
   return (
     <div className="email">
       <h2 className="h2">Email Verification</h2>
