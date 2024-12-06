@@ -4,7 +4,7 @@ import axios from 'axios'
 
 const Email = () => {
   const [email, setEmail] = useState("");
-  // const token=localStorage.getItem("token")
+  //const token=localStorage.getItem("token")
   const handleChange = (e) => {
     setEmail(e.target.value);
   };
@@ -16,16 +16,15 @@ const Email = () => {
       console.log(res)
       if (res.status==200) {
         alert(res.data.msg)
-        localStorage.setItem('email', email);
+        localStorage.setItem('email', email)
       }else{
+        // alert("email already exist")
         alert(res.data.msg)
       }
-      
     } catch (error) {
       console.log(error)
-      
     }
-  };
+  }
   return (
     <div className="email">
       <h2 className="h2">Email Verification</h2>

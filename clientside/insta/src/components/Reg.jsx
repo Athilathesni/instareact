@@ -26,7 +26,7 @@ const Reg = () => {
       if(res.status==201){
         alert(res.data.msg)
         localStorage.removeItem('email')
-        navigate('/login')
+        navigate("/login")
       }else{
         alert(res.data.msg)
       }
@@ -55,7 +55,7 @@ const Reg = () => {
           <label>Confirm Password:</label>
           <input type="password" name="cpwd" id="cpwd" value={formData.cpwd} onChange={handleChange} placeholder="Confirm Password" required/>
         </div>
-        <button type="submit" className="btn-submit" >Register</button>
+        <button type="submit" className="btn-submit">Register</button>
       </form>
     </div>
   );

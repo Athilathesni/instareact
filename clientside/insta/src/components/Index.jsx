@@ -11,7 +11,7 @@ const Index=({setUser})=>{
         }
         else{
             try {
-                const res=await axios.get('http://localhost:3000/api/Home',{headers: {'Authorization': `Bearer ${token}`}})
+                const res=await axios.get('http://localhost:3000/api/home',{headers: {'Authorization': `Bearer ${token}`}})
                 console.log(res);
                 
                 if (res.status==200) {
