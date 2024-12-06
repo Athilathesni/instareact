@@ -84,8 +84,7 @@ return res.status(500).send({msg:"email exist"})
 
 export async function Home(req, res) {
 const usr=await userSchema.findOne({_id:req.user.UserID})
-console.log(usr);
-
+// console.log(usr);
 res.status(200).send({name:usr.username}); 
 }
 
