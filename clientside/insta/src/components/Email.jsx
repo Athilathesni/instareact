@@ -12,7 +12,7 @@ const Email = () => {
     e.preventDefault();
     try {
       console.log(email)
-      const res=await axios.post("http://localhost:4000/api/emailv",{email})
+      const res=await axios.post("http://localhost:3000/api/emailv",{email})
       console.log(res)
       if (res.status==200) {
         alert(res.data.msg)

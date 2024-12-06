@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import "./Nav.css"
-import img from "../assets/insta.webp";
 
 const Nav = ({user}) => {
   const [isDropdownVisible, setIsDropdownVisible] = useState(false)
@@ -30,7 +29,6 @@ const Nav = ({user}) => {
     alert("Logout Successfully")
     navigate("/login")
   }
-
   return (
     <nav className="navbar">
       <div>
@@ -61,21 +59,6 @@ const Nav = ({user}) => {
     
   )
 }
-//     <div className="navbar">
-//       <div className="rightside">   
-//         <h3>Username</h3>
-//       <div style={{height:"30px",width:"30px",backgroundColor:"white",borderRadius:"50%"}}></div>
-//       <button>login</button>
-//         <select   name="userActions"   id="userActions"  onChange={handleLogout}   >
-//           <option value=""></option>
-//           <option value="logout">Logout</option>
-//           <option value="profile">Profile</option>
-//         </select>
-//       </div>
-//     </div>
-//   );
-// };
-
 export default Nav;
 
 

@@ -13,12 +13,12 @@ console.log("app"+user);
   return (
     <>
     <BrowserRouter>
-    {<Nav user={user}/>}
+    {user&& <Nav user={user}/>}
       <Routes>
-        <Route path="/" element={<Index setUser={setUser}/>}/>
-        <Route path="/login" element={<Login/>}/>
-        <Route path="/reg" element={<Reg/>}/>
-        <Route path='/email' element={<Email/>}/>
+        <Route path="/" element={<Index setUser={setUser}/>}></Route>
+        <Route path="/login" element={<Login/>}></Route>
+        <Route path="/reg" element={<Reg/>}></Route>
+        <Route path='/email' element={<Email/>}></Route>
       </Routes>
     </BrowserRouter>
       

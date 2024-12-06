@@ -1,28 +1,29 @@
-import axios from "axios"
 import React, { useEffect } from "react"
+import axios from 'axios'
 import { useNavigate } from "react-router-dom"
 
-const Index=()=>{
-    const navigates=useNavigate()
-    const getUser=async()=>{
-        const token=localStorage.getItem("token")
-        console.log(!token);
-
+const Index=({setUser})=>{
+    const navigate=useNavigate()
+    const getUser=async () => {
+        const token=localStorage.getItem('token')
         if(!token){
-            // console.log(hai);
-            navigates("/login")
+            navigate('/login')
         }
         else{
-            try{
-              const res=await axios.get("https://localhost:4000/api/home",{})
-              if(res.status==200){
-                setUser(res.data.name)
-              } 
-              else{
-                navigates("/login")
-              } 
-            }catch(error){
-                console.log(error);
+            try {
+                const res=await axios.get('http://localhost:3000/api/Home',{headers: {'Authorization': `Bearer ${token}`}})
+                console.log(res);
+                
+                if (res.status==200) {
+                    setUser(res.data.name)
+                }
+                else{
+                    navigate('/login')
+                }
+            } catch (error) {
+                console.log(error)
+                location.reload()
+                navigate('/login')
             }
         }
     }

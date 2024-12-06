@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./Login.css";
+import "./Login.css"
 import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios'
 
@@ -7,7 +7,7 @@ const Login = () => {
   const navigate = useNavigate()
   const [formData, setFormData] = useState({
     email: "",
-    pass: "",
+    pwd: "",
   });
 
   const handleChange = (e) => {
@@ -18,20 +18,21 @@ const Login = () => {
     e.preventDefault();
     try {
       console.log(formData)
-      const res=await axios.post("http://localhost:4000/api/login",formData)
-      console.log(res)
+      const res=await axios.post("http://localhost:3000/api/login",formData)
+      console.log(res.data)
+      // console.log(res.data.token)
+      
       if(res.status==201){
+        localStorage.setItem('token',res.data.token)
         alert("successfully logined!")
         navigate('/')
       }else{
         alert(res.data.msg)
       }
     } catch (error) {
-      console.log(error);
-      
+      console.log(error)
     }
-  };
-
+  }
 
   return (
     <div className="main">
