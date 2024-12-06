@@ -17,41 +17,38 @@ const transporter = nodemailer.createTransport({
     },
   });
   export async function adduser(req, res) {
-    // console.log(req.body);
     const { username, email, pwd, cpwd } = req.body
     const user = await userSchema.findOne({ email })
     if (!user) {
-        if (!(username && email && pwd && cpwd))
-            return res.status(500).send({ msg: "fields are empty" })
-        if (pwd != cpwd)
-            return res.status(500).send({ msg: "pass not match" })
-        bcrypt.hash(pwd, 10).then((hpwd) => {
-            userSchema.create({ username, email, pass: hpwd })
-            res.status(201).send({ msg: "Successfull" })
-        }).catch((error) => {
-            console.log(error)
+      if (!(username && email && pwd && cpwd))
+        return res.status(500).send({ msg: "fields are empty" })
+      if (pwd != cpwd) return res.status(500).send({ msg: "pass not match" })
+      bcrypt
+        .hash(pwd, 10)
+        .then((hpwd) => {
+          userSchema.create({ username, email, pwd: hpwd })
+          res.status(201).send({ msg: "Successfull" })
         })
-    }else{
-        res.status(500).send({msg:"email already used "})
+        .catch((error) => {
+          console.log(error)
+        });
+    } else {
+      res.status(500).send({ msg: "email already used " })
     }
-}
-
-export async function login(req, res) {
-    // console.log(req.body);
-    const { email, pass } = req.body
-    if (!(email && pass))
-        return res.status(404).send({ msg: "fields are empty" })
+  }
+  
+  export async function login(req, res) {
+    const { email, pwd } = req.body
+    if (!(email && pwd))
+      return res.status(500).send({ msg: "fields are empty" })
     const user = await userSchema.findOne({ email })
-    if (!user)
-        return res.status(404).send({ msg: "email donot exist" })
-    const success = await bcrypt.compare(pass, user.pass)
-    // console.log(success);
+    if (!user) return res.status(500).send({ msg: "email donot exist" })
+    const success = await bcrypt.compare(pwd, user.pwd)
     if (success !== true)
-        return res.status(404).send({ msg: "email or password not exist" })
-    const token = await sign({ UserID: user._id }, process.env.jwt_key, { expiresIn: "10s" })
-    // console.log(token)
+      return res.status(500).send({ msg: "email or password not exist" })
+    const token = await sign({ UserID: user._id }, process.env.jwt_key, {expiresIn: "24h",})
     res.status(201).send({ token })
-}
+  }
 
   export async function emailv(req,res) {
     const {email}=req.body
@@ -71,7 +68,7 @@ export async function login(req, res) {
         <div style="width: 400px; height: 150px; border:none; background-color: rgb(248, 247, 247); border-radius: 3px; box-shadow:0 0 2px 2px rgb(199, 197, 197); ">
             <h3 style="color: rgb(146, 57, 16); font-weight: bold; font-size: 25px; margin-top: 10px; margin-left: 110px;">Email Validation</h3>
             <input type="text" name="email" id="email" placeholder="enter email" style="width: 250px; height: 30px; margin-top: 40px; margin-left: 20px;">
-             <a href="http://localhost:5173/Reg">
+             <a href="http://localhost:5173/reg">
             <button style="height:40px; width: 90px; color: white; background-color: seagreen; border: none; border-radius: 4px; font-weight: bold;">Verify</button>
             </a>
         </div>
@@ -91,3 +88,34 @@ console.log(usr);
 
 res.status(200).send({name:usr.username}); 
 }
+
+export async function getdt(req, res) {
+    const usr = await userSchema.findOne({ _id: req.user.UserID })
+    const data = await userDataSchema.findOne({ userId: req.user.UserID })
+    if (!data) res.status(200).send({ usr })
+    else {
+      res.status(200).send({ usr, data })
+    }
+  }
+  
+  export async function adddt(req, res) {
+      try {
+        const { nickname, dob, note } = req.body
+      await userDataSchema.create({userId:req.user.UserID,nickname,dob,note})
+        res.status(200).send({ message: "Data added successfully!" })
+      } catch (error) {
+        console.error(error)
+        res.status(500).send({ message: "Failed to add data. Please try again." })
+      }
+  }
+    
+  export async function editdt(req, res) {
+      try {
+        const { nickname, dob, note } = req.body
+        const updatedData = await userDataSchema.updateOne({ userId: req.user.UserID },{ $set: { nickname, dob, note } },)
+        res.status(200).send({ message: "Data updated successfully!", data: updatedData })
+      } catch (error) {
+        console.error(error)
+        res.status(500).send({ message: "Failed to update data. Please try again." })
+      }
+  }  
